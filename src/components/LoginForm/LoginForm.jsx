@@ -1,16 +1,18 @@
 import React from "react";
 import { withFormik, Field, ErrorMessage, Form } from "formik";
+import * as Yup from 'yup'
 import "./LoginForm.css";
-// import { Link } from 'react-router-dom'
+import axios from "axios";
 
-const LoginForm = ({ handleSubmit, isSubmitting, isValid }) => {
+
+const LoginForm = ({ isSubmitting, isValid }) => {
   return (
     <div className="login mt-3">
       <div className="card w-50 text-center">
         <Form className="form">
           <Field
             name="email"
-            placeholder="Ingresa tu e-mail..."
+            placeholder="Enter your email..."
             type="email"
             className="input form-control"
           />
@@ -19,7 +21,7 @@ const LoginForm = ({ handleSubmit, isSubmitting, isValid }) => {
           </ErrorMessage>
           <Field
             name="password"
-            placeholder="Ingresa tu contraseña..."
+            placeholder="Enter your password..."
             type="password"
             className="input form-control"
           />
@@ -29,13 +31,12 @@ const LoginForm = ({ handleSubmit, isSubmitting, isValid }) => {
           <div className="button">
             <button
               type="submit"
-              // is not submitting, button gets disable...
               className="btn btn-primary"
               disabled={isSubmitting || !isValid}
               variant="contained"
               color="primary"
             >
-              Enviar
+              Submit
             </button>
           </div>
         </Form>
@@ -45,4 +46,26 @@ const LoginForm = ({ handleSubmit, isSubmitting, isValid }) => {
 };
 
 export default withFormik({
+    mapPropsToValues(props) {
+        return {
+            email: '',
+            password: '',
+        }
+    },
+    validationSchema: Yup.object().shape({
+        email: Yup.string().email('Email is not valid').required('Email is required'),
+        password: Yup.string().min(5, "The password must be at least 5 characters long").required('Password is required')
+    }),
+    handleSubmit(values, { resetForm }) {
+        axios.post('http://challenge-react.alkemy.org/', values)
+            .then(data => {
+                const token = data.data.token
+                localStorage.setItem('token', token)
+                console.log('User logged in');
+                resetForm()
+            }).catch(err => {
+                console.log(err)
+                resetForm()
+            })
+    }
 })(LoginForm);
