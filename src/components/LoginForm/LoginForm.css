@@ -1,0 +1,41 @@
+.form {
+  display: flex !important;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between !important;
+}
+.field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.error {
+  margin-bottom: 0.5rem;
+  color: #ce1212;
+}
+.button {
+  display: flex;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+}
+.card {
+  padding: 5rem;
+  background-color: #eeebdd;
+  border-radius: 1.55rem;
+  box-shadow: 0 0.6rem 1.8rem #eeebdd60 !important;
+}
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form-control {
+  margin-bottom: 1rem;
+}
+.form-control:focus {
+  border-color: #810000;
+  box-shadow: 0 0 0 0.2rem #81000040;
+}
