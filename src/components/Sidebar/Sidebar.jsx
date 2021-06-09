@@ -1,4 +1,5 @@
 import React from "react";
+import SearchForm from "../SearchForm/SearchForm";
 import { Link } from "react-router-dom"
 
 //Styles
@@ -16,6 +17,8 @@ const Sidebar = ( props ) => {
       >
         <span className="fs-4">My Heroes Team</span>
       </Link>
+      <hr />
+        <SearchForm {...props}/>
       <hr />
       <ul className="nav nav-pills flex-column mb-auto">
         <li className="nav-item">
